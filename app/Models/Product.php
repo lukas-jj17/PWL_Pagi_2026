@@ -8,12 +8,13 @@ class Product extends Model
 {
     protected $fillable = [
         'barcode_number',
-        'barcode_name',
+        'product_name',
         'buy_price',
         'sell_price',
+        'supplier_id',
     ];
 
-    protected $table = 'products';
+    protected $table = 'product';
 
     public $timestamps = true;
 

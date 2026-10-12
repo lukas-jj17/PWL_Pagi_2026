@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->integer('buy_price');
             $table->integer('sell_price');
+            $table->integer('supplier_id')->nullable();
             $table->timestamps();
         });
     }

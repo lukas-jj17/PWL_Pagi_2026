@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Supplier;
 
 class ProductController extends Controller
 {
@@ -11,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products.index', ['products']);
+        return Product::all();
     }
 
     /**
@@ -19,7 +21,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $supplier = Supplier::get();
+        return view('product.create', ['supplier' => $supplier]);
     }
 
     /**
@@ -27,7 +30,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        product::create($request);
+        Product::create($request->all());
+        return redirect('/products');
     }
 
     /**

@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Supplier;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,26 +14,26 @@ Route::get('/supplier', function () {
     return Supplier::all();
 });
 
-route::get('products', [productController::class, 'index']);
-route::get('product-new', [productController::class, 'create']);
-route::post('products', [productController::class, 'store']);
-route::get('products/{id}', [productController::class, 'show']);
-route::get('products/{id}/edit', [productController::class, 'edit']);
-route::put('products/{id}', [productController::class, 'update']);
-route::delete('products/{id}', [productController::class, 'destroy']);
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
+Route::get('product-new', [ProductController::class, 'create'])->name('products.create');
+Route::post('products', [ProductController::class, 'store'])->name('products.store');
+Route::get('products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-route::get('suppliers', [supplierController::class, 'index']);
-route::get('supplier-new', [supplierController::class, 'create']);
-route::post('suppliers', [supplierController::class, 'store']);
-route::get('suppliers/{id}', [supplierController::class, 'show']);
-route::get('suppliers/{id}/edit', [supplierController::class, 'edit']);
-route::put('suppliers/{id}', [supplierController::class, 'update']);    
-route::delete('suppliers/{id}', [supplierController::class, 'destroy']);
+route::get('suppliers', [SupplierController::class, 'index']);
+route::get('supplier-new', [SupplierController::class, 'create']);
+route::post('suppliers', [SupplierController::class, 'store']);
+route::get('suppliers/{id}', [SupplierController::class, 'show']);
+route::get('suppliers/{id}/edit', [SupplierController::class, 'edit']);
+route::put('suppliers/{id}', [SupplierController::class, 'update']);    
+route::delete('suppliers/{id}', [SupplierController::class, 'destroy']);
 
-route::get('transactions', [transactionController::class, 'index']);
-route::get('transaction-new', [transactionController::class, 'create']);
-route::post('transactions', [transactionController::class, 'store']);
-route::get('transactions/{id}', [transactionController::class, 'show']);
-route::get('transactions/{id}/edit', [transactionController::class, 'edit']);
-route::put('transactions/{id}', [transactionController::class, 'update']);
-route::delete('transactions/{id}', [transactionController::class, 'destroy']);
+route::get('transactions', [TransactionController::class, 'index']);
+route::get('transaction-new', [TransactionController::class, 'create']);
+route::post('transactions', [TransactionController::class, 'store']);
+route::get('transactions/{id}', [TransactionController::class, 'show']);
+route::get('transactions/{id}/edit', [TransactionController::class, 'edit']);
+route::put('transactions/{id}', [TransactionController::class, 'update']);
+route::delete('transactions/{id}', [TransactionController::class, 'destroy']);
