@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Supplier;
 
 class SupplierController extends Controller
 {
@@ -11,7 +12,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('suppliers.index', ['suppliers']);
+        $suppliers = Supplier::all();
+        return view('supplier.index', compact('suppliers'));
     }
 
     /**
@@ -19,7 +21,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('suppliers.create');
+        return view('supplier.create');
     }
 
     /**
@@ -27,7 +29,15 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        supplier::create($request);
+        $validated = $request->validate([
+            'supplier_name' => 'required|string|max:255',
+            'phone'         => 'required|string|max:50',
+            'email'         => 'required|email|max:255',
+        ]);
+
+        Supplier::create($validated);
+
+        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil ditambahkan!');
     }
 
     /**
@@ -35,7 +45,8 @@ class SupplierController extends Controller
      */
     public function show(string $id)
     {
-        return view('suppliers.show',['supplier']);
+        $supplier = Supplier::findOrFail($id);
+        return redirect()->route('supplier.edit', $supplier->id);
     }
 
     /**
@@ -43,7 +54,8 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        return view('suppliers.update', ['supplier']);
+        $supplier = Supplier::findOrFail($id);
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
@@ -51,7 +63,16 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'supplier_name' => 'required|string|max:255',
+            'phone'         => 'required|string|max:50',
+            'email'         => 'required|email|max:255',
+        ]);
+
+        $supplier = Supplier::findOrFail($id);
+        $supplier->update($validated);
+
+        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil diperbarui!');
     }
 
     /**
@@ -59,6 +80,9 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        $supplier->delete();
+
+        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil dihapus!');
     }
 }
